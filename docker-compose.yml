@@ -1,21 +1,21 @@
 services:
-  app:
-    image: laravel:latest
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: laravel_app
-    ports:
-      - "8000:8000"
-    volumes:
-      - .:/var/www/html
-    depends_on:
-      - db
-    environment:
-      - DB_HOST=db
-      - DB_DATABASE=expensetracker
-      - DB_USERNAME=root
-      - DB_PASSWORD=root
+  # app:
+  #  image: laravel:latest
+  #  build:
+  #    context: .
+  #    dockerfile: Dockerfile
+  #  container_name: laravel_app
+  #   ports:
+  #    - "8000:8000"
+  #  volumes:
+  #    - .:/var/www/html
+  #  depends_on:
+  #    - db
+  #  environment:
+  #    - DB_HOST=db
+  #    - DB_DATABASE=expensetracker
+  #    - DB_USERNAME=root
+  #    - DB_PASSWORD=root
 
   db:
     image: mysql:8.0
