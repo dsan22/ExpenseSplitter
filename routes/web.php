@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GroupController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,5 +23,13 @@ Route::view('dashboard', 'dashboard')
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
+
+
+    Route::get('groups', [GroupController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('groups.index');
+
+
+
 
 require __DIR__.'/auth.php';
