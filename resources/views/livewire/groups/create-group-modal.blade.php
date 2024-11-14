@@ -18,11 +18,14 @@ new class extends Component {
         $this->modalOpen = false;
         $this->dispatch('groupsChanged');
     }
+    public function openModal(){
+        $this->modalOpen=true;
+    }
 }; ?>
 
 <div>
     <div>
-        <x-button emerald icon="plus" wire:click="$set('modalOpen', true)">Create New Group</x-button>
+        <x-button emerald icon="plus" wire:click="openModal">Create New Group</x-button>
     </div>
     <x-modal.card title="Create New Group" blur wire:model="modalOpen">
         <form wire:submit="createNewGroup">
