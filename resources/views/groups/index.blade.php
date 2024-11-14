@@ -5,11 +5,8 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-               <livewire:groups.show-groups :groups="$groups"/>
-            </div>
-        </div>
+    <div class=" py-12 max-w-7xl mx-auto sm:px-6 lg:px-8 overflow-hidden">
+        <livewire:groups.show-groups :groups="$groups"/>
     </div>
+  
 </x-app-layout>
