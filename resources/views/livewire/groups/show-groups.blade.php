@@ -4,10 +4,14 @@ use Livewire\Volt\Component;
 
 new class extends Component {
     public $groups;
-
+    protected $listeners = ['groupsChanged' => 'refreshGroups'];
     public function mount($groups)
     {
         $this->groups = $groups; 
+    }
+    public function refreshGroups()
+    {
+        $this->groups = auth()->user()->groups;
     }
 }; ?>
 
