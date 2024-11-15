@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GroupController;
+use App\Models\Group;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,7 +29,15 @@ Route::view('profile', 'profile')
     Route::view('groups', 'groups.index')
     ->middleware(['auth'])
     ->name('groups.index');
-
+    
+    Route::get('groups/{group}', function (Group $group)  {
+        if(!$group){
+            abort(404);
+        }
+        return view("groups.view",compact("group"));
+    })
+    ->middleware(['auth'])
+    ->name('groups.view');
 
 
 

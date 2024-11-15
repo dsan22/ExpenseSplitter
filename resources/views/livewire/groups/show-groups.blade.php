@@ -39,7 +39,7 @@ new class extends Component {
                     <x-card  >
                         <div class="flex justify-between ">
                             <div >
-                                <a href="#" class="text-xl font-bold ">{{$group->name}}</a>
+                                <a href={{route('groups.view',$group)}} class="text-xl font-bold ">{{$group->name}}</a>
                             </div>
                             <div class="flex">
                                 <div class="text-gray-400 text-sm mx-7 py-1 "> Members: {{$group->users->count()}} </div> 
