@@ -25,7 +25,7 @@ Route::view('profile', 'profile')
     ->name('profile');
 
 
-    Route::get('groups', [GroupController::class, 'index'])
+    Route::view('groups', 'groups.index')
     ->middleware(['auth'])
     ->name('groups.index');
 
