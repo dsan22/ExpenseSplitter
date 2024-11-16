@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("group_id")->constrained()->cascadeOnDelete();
             $table->string("name");
-            $table->integer("ammount");
+            $table->integer("amount");
             $table->float("unit_price");
             $table->foreignId("user_id")->constrained('users')->cascadeOnDelete()->comment('User who added the record');
             $table->timestamps();
