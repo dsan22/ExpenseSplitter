@@ -40,7 +40,9 @@ class DatabaseSeeder extends Seeder
             $group->users()->attach($randomUsers);
             Expense::factory(10)->create([
                 'group_id' => $group->id,  // Associating each expense with the group
-                'user_id' => $randomUsers->random()
+                'user_id' => function () use ($randomUsers) {
+                    return $randomUsers->random();
+                },
             ]);
         };  
     }
