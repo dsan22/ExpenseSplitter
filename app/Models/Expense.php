@@ -12,6 +12,9 @@ class Expense extends Model
     public function group(){
         return $this->belongsTo(Group::class);
     }
+    public function added_by(){
+        return $this->belongsTo(User::class,"user_id");
+    }
     public function expenseShare(){
         return $this->hasMany(ExpenseShare::class);
     }
