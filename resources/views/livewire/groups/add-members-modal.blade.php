@@ -20,6 +20,10 @@ new class extends Component {
             return;
         }
         $user->groups()->attach($this->group->id);
+        $this->dispatch('membersChanged');
+        $this->reset('email');
+        $this->modalOpen = false;
+        
         
     }
     
