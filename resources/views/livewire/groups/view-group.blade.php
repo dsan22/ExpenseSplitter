@@ -7,12 +7,18 @@ new class extends Component {
         'groupsChanged' => 'refreshGroup'
     ];
    public $group;
+   public $expenses;
+   public $tableKey;
 
     public function mount($group){
         $this->group=$group;
+        $this->expenses=$group->expenses;
+        $this->tableKey = uniqid();
     }
     public function refreshGroup(){
         $this->group->refresh();
+        $this->expenses=$this->group->expenses;
+        $this->tableKey = uniqid();
     }
 }; ?>
 
@@ -25,25 +31,9 @@ new class extends Component {
         <div class="m-5">
             <livewire:expenses.create-expense-modal :group="$group"/>
         </div>
-        <div class="table w-full">
-            <div class="table-header-group bg-cyan-100">
-                <div class="table-row">
-                    <div class="table-cell px-4 py-2 ">Name</div>
-                    <div class="table-cell px-4 py-2  ">Amount</div>
-                    <div class="table-cell px-4 py-2  ">Unit Price</div>
-                    <div class="table-cell px-4 py-2  ">Added By</div>
-                    <div class="table-cell px-4 py-2  ">Action</div>
-                </div>
-            </div>
-            <div class="table-row-group">
-                @foreach ($group->expenses as $expense)
-                    <livewire:expenses.expense-row wire:key="{{$expense->id}}"
-                        :expense="$expense"
-                        :class="$loop->even ? 'bg-cyan-50 hover:bg-cyan-100' : 'bg-white hover:bg-cyan-100'"
-                    />
-                 @endforeach
-            </div>
-       
+
+        <div>
+            <livewire:expenses.expense-table :expenses="$expenses" :key="$tableKey"/>
         </div>
     </div>
 </div>
