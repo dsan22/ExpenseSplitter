@@ -3,14 +3,17 @@
 use Livewire\Volt\Component;
 
 new class extends Component {
+    protected $listeners = [
+        'groupsChanged' => 'refreshGroup'
+    ];
    public $group;
-
 
     public function mount($group){
         $this->group=$group;
     }
-
-
+    public function refreshGroup(){
+        $this->group->refresh();
+    }
 }; ?>
 
 <div>
@@ -19,7 +22,9 @@ new class extends Component {
         <livewire:groups.show-members-modal :group="$group"/>
     </div>
     <div class="w-full mt-6">
-        
+        <div class="m-5">
+            <livewire:expenses.create-expense-modal :group="$group"/>
+        </div>
         <div class="table w-full">
             <div class="table-header-group bg-cyan-100">
                 <div class="table-row">
