@@ -19,18 +19,20 @@ new class extends Component {
             'expenseAmount'     => 'required|integer|min:1',
             'expenseUnitPrice' => 'required|numeric|min:0',
         ]);
-        $expense = Expense::create([
+
+        $expense = new Expense([
             'name' => $this->expenseName,
-            'amount'=>$this->expenseAmount,
-            'unit_price'=>$this->expenseUnitPrice,
-            'group_id'=>$this->group->id,
-            'user_id'=>auth()->user()->id
+            'amount' => $this->expenseAmount,
+            'unit_price' => $this->expenseUnitPrice,
         ]);
+        $expense->group()->associate($this->group);
+        $expense->added_by()->associate(auth()->user());
+        $expense->save();
+
         $this->reset('expenseName');
         $this->reset('expenseAmount');
         $this->reset('expenseUnitPrice');
 
-        
         $this->modalOpen = false;
         $this->dispatch('groupsChanged');
     }
