@@ -4,36 +4,51 @@ use Livewire\Volt\Component;
 use App\Models\Expense;
 
 new class extends Component {
+   
+
     public $expenses;
+    public $show=null;
 
     public function mount($expenses){
         $this->expenses = $expenses;
     }
-};?>
-<div class="table w-full">
-    <div class="table-header-group bg-cyan-100">
-        <div class="table-row">
-            <div class="table-cell px-4 py-2 ">Name</div>
-            <div class="table-cell px-4 py-2  ">Amount</div>
-            <div class="table-cell px-4 py-2  ">Unit Price</div>
-            <div class="table-cell px-4 py-2  ">Added By</div>
-            <div class="table-cell px-4 py-2  ">Action</div>
-        </div>
-    </div>
-    <div class="table-row-group">
-        @foreach ($expenses as $expense)
-            <div 
-                class="{{'table-row '.($loop->even ? 'bg-cyan-50 hover:bg-cyan-100' : 'bg-white hover:bg-cyan-100') }}"
-                wire:key="expense-{{$expense->id }}"
-            >
-                <div class="table-cell ps-3 py-3">  {{$expense->name}}</div>
-                <div class="table-cell ps-3 py-3">  {{$expense->amount}}</div>
-                <div class="table-cell ps-3 py-3">  {{$expense->unit_price}}</div>
-                <div class="table-cell ps-3 py-3">  {{$expense->added_by->name}}</div>
-                <div class="table-cell ps-3 py-3">  ...</div>
-            </div>
-    
-        @endforeach
-    </div>
-</div>
 
+    public function toggle($id){
+        $this->show = ($this->show === $id) ? null : $id;
+    }
+};?>
+<table class="w-full">
+    <thead class="bg-cyan-100">
+        <tr>
+            <th class="px-4 py-2">Name</th>
+            <th class="px-4 py-2">Amount</th>
+            <th class="px-4 py-2">Unit Price</th>
+            <th class="px-4 py-2">Added By</th>
+            <th class="px-4 py-2">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($expenses as $expense)
+            <tr 
+                class="{{ $loop->even ? 'bg-cyan-50 hover:bg-cyan-100' : 'bg-white hover:bg-cyan-100' }}"
+                wire:key="expense-{{ $expense->id }}"
+                wire:click="toggle({{ $expense->id }})"
+            >
+                <td class="px-3 py-3">{{ $expense->name }}</td>
+                <td class="px-3 py-3">{{ $expense->amount }}</td>
+                <td class="px-3 py-3">{{ $expense->unit_price }}</td>
+                <td class="px-3 py-3">{{ $expense->added_by->name }}</td>
+                <td class="px-3 py-3">...</td>
+            </tr>
+        
+            <tr 
+                class="{{ $show === $expense->id ? '' : 'hidden' }}" 
+                wire:key="expense-details-{{ $expense->id }}"
+            >
+                <td class="bg-emerald-100 px-4 py-2" colspan="5">
+                    Details for: {{ $expense->name }}
+                </td>
+            </tr>
+        @endforeach
+    </tbody>
+</table>
