@@ -19,6 +19,11 @@ class Expense extends Model
         return $this->hasMany(ExpenseShare::class);
     }
 
+    public function totalAmount(){
+        return $this->unit_price*$this->amount;
+    }
+
+
 
     protected $guarded=["id"];
 }
