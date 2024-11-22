@@ -9,7 +9,7 @@ new class extends Component {
 
     public function mount(Expense $expense){
         $this->expense= $expense;
-        $this->expenseShares=$expense->expenseShare;
+        $this->expenseShares=$expense->expenseShares;
     }
 
 }; ?>

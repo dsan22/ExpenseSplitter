@@ -15,7 +15,7 @@ class Expense extends Model
     public function added_by(){
         return $this->belongsTo(User::class,"user_id");
     }
-    public function expenseShare(){
+    public function expenseShares(){
         return $this->hasMany(ExpenseShare::class);
     }
 
