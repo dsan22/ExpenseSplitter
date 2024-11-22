@@ -17,11 +17,15 @@ class ExpenseShare extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function calculateUserPayment(){
+    public function calculatePortion(){
         $expense = $this->expense; 
         $totalWeight = $expense->expenseShares->sum('weight'); 
         $userWeightPortion = $this->weight / $totalWeight; 
-        return $expense->getTotalAmount() * $userWeightPortion; 
+        return $userWeightPortion;
+    }
+    public function calculateUserPayment(){
+        $userWeightPortion = $this->calculatePortion(); 
+        return $this->expense->getTotalAmount() * $userWeightPortion; 
     }
     protected $guarded=["id"];
 }
