@@ -13,5 +13,9 @@ class ExpenseShare extends Model
         return $this->belongsTo(Expense::class);
     }
 
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
     protected $guarded=["id"];
 }

@@ -12,17 +12,6 @@ new class extends Component {
 }; ?>
 
 <div>
-    @foreach ($list as $item)
-    <div class="flex" wire:key={{$item}}>
-    <x-button wire:click="showComponent({{$item}})"> o</x-button>
-
-    @if($this->show===$item)
-    <div>
-        <p>{{$item}}</p>
-    </div>
-    @endif
-    </div>
-    @endforeach
-    
+    <livewire:expense_shares.expense_share_table  />
     
 </div>
