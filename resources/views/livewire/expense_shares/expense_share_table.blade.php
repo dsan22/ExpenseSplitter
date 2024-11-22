@@ -19,8 +19,9 @@ new class extends Component {
     <thead class="bg-gray-300">
         <tr>
             <th class="px-4 py-2">Member</th>
+            <th class="px-4 py-2">Weight</th>
             <th class="px-4 py-2">Portion</th>
-            <th class="px-4 py-2">Ammount portion</th>
+            <th class="px-4 py-2">Users Payment</th>
             <th class="px-4 py-2">Action</th>
         </tr>
     </thead>
@@ -30,7 +31,8 @@ new class extends Component {
             wire:key="expense-{{ $expense->id }}">
             <td class="px-4 py-2">{{$share->user->name}}</td>
             <td class="px-4 py-2">{{$share->weight}}</td>
-            <td class="px-4 py-2">to be done</td>
+            <td class="px-4 py-2">{{$share->calculatePortion()}}</td>
+            <td class="px-4 py-2">{{$share->calculateUserPayment()}}</td>
             <td class="px-4 py-2">...</td>
         </tr>
         @endforeach
