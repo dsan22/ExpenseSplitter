@@ -19,7 +19,7 @@ class Expense extends Model
         return $this->hasMany(ExpenseShare::class);
     }
 
-    public function getTotalAmount(){
+    public function getTotalPrice(){
         return $this->unit_price*$this->amount;
     }
 

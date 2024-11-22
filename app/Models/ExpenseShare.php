@@ -25,7 +25,7 @@ class ExpenseShare extends Model
     }
     public function calculateUserPayment(){
         $userWeightPortion = $this->calculatePortion(); 
-        return $this->expense->getTotalAmount() * $userWeightPortion; 
+        return $this->expense->getTotalPrice() * $userWeightPortion; 
     }
     protected $guarded=["id"];
 }
