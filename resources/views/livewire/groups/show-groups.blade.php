@@ -15,13 +15,6 @@ new class extends Component {
             "groups"=>Auth::user()->groups
         ];
     }
-
-    public function deleteGroup($id)
-    {
-        $group = Group::find($id);
-        $group->delete();
-        $this->dispatch('groupsChanged');
-    }
 }; ?>
 
 <div wire:poll.5s>
@@ -43,7 +36,6 @@ new class extends Component {
                             </div>
                             <div class="flex">
                                 <div class="text-gray-400 text-sm mx-7 py-1 "> Members: {{$group->users->count()}} </div> 
-                                <x-button.circle icon="trash" negative wire:click="deleteGroup({{$group->id}})"/>
                             </div>
                         </div>
                     </x-card>
