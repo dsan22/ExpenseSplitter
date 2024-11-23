@@ -33,6 +33,12 @@ new class extends Component {
         $this->group->refresh();
         $this->loadUsers();
     }
+
+    public function leave()
+    {
+        $this->group->users()->detach(auth()->user());
+        return redirect()->route('groups.index'); //
+    }
 };?>
 <div>
     <div>
@@ -40,7 +46,7 @@ new class extends Component {
     </div>
     <x-modal.card title="Members" blur wire:model="modalOpen">
         <div class="flex justify-end px-8 space-x-3">
-            <x-button negative label="Leave" />
+            <x-button negative label="Leave"  wire:click="leave" />
             <livewire:groups.add-members-modal :group="$group" />
         </div>
 
