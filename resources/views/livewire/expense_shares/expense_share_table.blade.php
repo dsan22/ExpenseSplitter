@@ -4,12 +4,19 @@ use Livewire\Volt\Component;
 use App\Models\Expense;
 use App\Models\ExpenseShare;
 new class extends Component {
+
+    protected $listeners = [
+        'openAddExpenseShareModal' => 'refreshExpense'
+    ];
     public Expense $expense; 
     public $expenseShares;
 
     public function mount(Expense $expense){
         $this->expense= $expense;
         $this->expenseShares=$expense->expenseShares;
+    }
+    public function refreshExpense(){
+        $this->expense->refresh();
     }
 
 }; ?>

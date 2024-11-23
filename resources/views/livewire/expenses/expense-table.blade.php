@@ -16,7 +16,11 @@ new class extends Component {
     public function toggle($id){
         $this->show = ($this->show === $id) ? null : $id;
     }
+    public function openAddExpenseModal(Expense $expense){
+        $this->dispatch('openAddExpenseShareModal',$expense);
+    }
 };?>
+<div>
 <table class="w-full">
     <thead class="bg-cyan-100">
         <tr>
@@ -33,14 +37,16 @@ new class extends Component {
             <tr 
                 class="{{ $loop->even ? 'bg-cyan-50 hover:bg-cyan-100' : 'bg-white hover:bg-cyan-100' }}"
                 wire:key="expense-{{ $expense->id }}"
-                wire:click="toggle({{ $expense->id }})"
+               
             >
-                <td class="px-3 py-3">{{ $expense->name }}</td>
+                <td class="px-3 py-3"  wire:click="toggle({{ $expense->id }})">{{ $expense->name }}</td>
                 <td class="px-3 py-3">{{ $expense->amount }}</td>
                 <td class="px-3 py-3">{{ $expense->unit_price }}</td>
                 <td class="px-3 py-3">{{ $expense->getTotalPrice() }}</td>
                 <td class="px-3 py-3">{{ $expense->added_by->name }}</td>
-                <td class="px-3 py-3">...</td>
+                <td class="px-3 py-3">
+                    <x-button.circle  emerald icon="user-add"  wire:click="openAddExpenseModal({{$expense}})"/>
+                </td>
             </tr>
         
             <tr 
@@ -56,3 +62,5 @@ new class extends Component {
         @endforeach
     </tbody>
 </table>
+<livewire:expense_shares.add-expense-share-modal   />
+<div>
