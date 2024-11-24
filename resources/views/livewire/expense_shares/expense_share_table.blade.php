@@ -6,7 +6,7 @@ use App\Models\ExpenseShare;
 new class extends Component {
 
     protected $listeners = [
-        'openAddExpenseShareModal' => 'refreshExpense'
+        'expenseSharesChanged' => 'refreshExpense'
     ];
     public Expense $expense; 
     public $expenseShares;
@@ -18,6 +18,7 @@ new class extends Component {
     public function refreshExpense(){
         $this->expense->refresh();
     }
+   
 
 }; ?>
 
@@ -40,7 +41,9 @@ new class extends Component {
             <td class="px-4 py-2">{{$share->weight}}</td>
             <td class="px-4 py-2">{{$share->calculatePortion()}}</td>
             <td class="px-4 py-2">{{$share->calculateUserPayment()}}</td>
-            <td class="px-4 py-2">...</td>
+            <td class="px-4 py-2">
+                <x-button.circle  negative  icon="trash"  wire:click="deleteExpenseShare({{$share}})"/>
+            </td>
         </tr>
         @endforeach
     </tbody>
