@@ -2,15 +2,18 @@
 
 use Livewire\Volt\Component;
 use App\Models\Expense;
+use App\Models\Group;
 
 new class extends Component {
    
 
     public $expenses;
+    public Group $group;
     public $show=null;
 
-    public function mount($expenses){
-        $this->expenses = $expenses;
+    public function mount(Group $group){
+        $this->group=$group;
+        $this->expenses = $group->expenses;
     }
 
     public function toggle($id){
@@ -18,6 +21,16 @@ new class extends Component {
     }
     public function openAddExpenseModal(Expense $expense){
         $this->dispatch('openAddExpenseShareModal',$expense);
+    }
+    public function deleteExpense(Expense $expense){
+        $expense->delete();
+        $this->refreshExpenses();
+    }
+
+    public function refreshExpenses(){
+        $this->group->refresh();
+        $this->expenses = $this->group->expenses;
+        $this->show=null;
     }
 };?>
 <div>
@@ -46,6 +59,7 @@ new class extends Component {
                 <td class="px-3 py-3">{{ $expense->added_by->name }}</td>
                 <td class="px-3 py-3">
                     <x-button.circle  emerald icon="user-add"  wire:click="openAddExpenseModal({{$expense}})"/>
+                    <x-button.circle  negative  icon="trash"  wire:click="deleteExpense({{$expense}})"/>
                 </td>
             </tr>
         

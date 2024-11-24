@@ -33,7 +33,7 @@ new class extends Component {
         </div>
 
         <div>
-            <livewire:expenses.expense-table :expenses="$expenses" :key="$tableKey"/>
+            <livewire:expenses.expense-table :group="$group" :key="$tableKey"/>
         </div>
     </div>
 </div>
