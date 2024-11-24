@@ -17,8 +17,13 @@ new class extends Component {
     }
     public function refreshExpense(){
         $this->expense->refresh();
+        $this->expenseShares=$this->expense->expenseShares;
     }
-   
+    
+    public function deleteExpenseShare(ExpenseShare $share){
+        $share->delete();
+        $this->refreshExpense();
+    }
 
 }; ?>
 
