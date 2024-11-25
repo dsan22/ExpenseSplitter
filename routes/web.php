@@ -39,6 +39,12 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('groups.view');
 
+    Route::get('testCalc', function ()  {
+      $user= auth()->user();
+      return $user->calculateUserPaymentForGroup(Group::find(61));
+        
+    });
+
 
 
     Route::view('test', 'test')

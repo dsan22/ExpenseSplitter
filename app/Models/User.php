@@ -16,6 +16,26 @@ class User extends Authenticatable
         return $this->belongsToMany(Group::class);
     }
 
+    public function calculateUserPaymentForGroup(Group $group){
+        $membersCount = $group->users()->count();
+        $expenses = $group->expenses;
+        $payment = $expenses->map(function ($expense)use( $membersCount) {
+            if ($expense->expenseShares()->doesntExist()) {
+                return $expense->getTotalPrice() / $membersCount;
+            }
+            $usersShare = $expense->expenseShares()
+            ->where('user_id',$this->id)
+            ->first();
+            if($usersShare){
+                return $usersShare->calculateUserPayment();
+            }else{
+               return 0;
+            }
+        })->sum();
+
+        return round($payment,2);
+    }
+
 
     /**
      * The attributes that are mass assignable.
