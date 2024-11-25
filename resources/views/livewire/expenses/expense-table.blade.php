@@ -67,7 +67,7 @@ new class extends Component {
                 class="{{ $show === $expense->id ? '' : 'hidden' }}" 
                 wire:key="expense-details-{{ $expense->id }}"
             >
-                <td class="px-5" colspan="5">
+                <td class="px-5" colspan="6">
                     @if ($show===$expense->id)
                     <livewire:expense_shares.expense_share_table :expense="$expense"  />
                     @endif
