@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\GroupController;
+use App\Http\Controllers\GroupInvitationController;
 use App\Models\Group;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +44,14 @@ Route::view('profile', 'profile')
       return $user->calculateUserPaymentForGroup(Group::find(61));
         
     });
+
+
+Route::post('groups/{group}/invite', [GroupInvitationController::class, 'sendInvitation'])->middleware(['auth'])
+    ->middleware(['auth'])    
+    ->name('groups.invite');
+Route::get('groups/invitation/{token}', [GroupInvitationController::class, 'acceptInvitation'])
+    ->middleware(['auth'])
+    ->name('groups.accept-invitation');
 
 
 

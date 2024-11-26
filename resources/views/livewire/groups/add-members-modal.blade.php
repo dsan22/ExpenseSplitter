@@ -37,8 +37,9 @@ new class extends Component {
         <x-button.circle  emerald icon="user-add"  wire:click="openModal"/>
     </div>
     <x-modal.card title="Add User" blur wire:model="modalOpen">
-        <form wire:submit="addUser">
-            <x-input label="Email"  type="email" placeholder="mail@email.com" wire:model="email"  />
+        <form action="{{ route('groups.invite', $group) }}" method="POST">
+            @csrf
+            <x-input label="Email" name="email" type="email" placeholder="mail@email.com"  />
 
             <div class="flex justify-end">
                 <div class="flex mt-3">

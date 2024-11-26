@@ -16,6 +16,10 @@ class Group extends Model
     public function expenses(){
         return $this->hasMany(Expense::class);
     }
+    public function invitations()
+{
+    return $this->hasMany(GroupInvitation::class);
+}
 
     protected $guarded=['id'];
 }

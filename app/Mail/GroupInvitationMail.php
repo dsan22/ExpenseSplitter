@@ -9,16 +9,19 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class GroupInviteMail extends Mailable
+class GroupInvitationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
-    public function __construct()
+    
+    public $group;
+    public $url;
+
+    public function __construct($group, $url)
     {
-        //
+        $this->group = $group;
+        $this->url = $url;
+
     }
 
     /**
@@ -27,7 +30,7 @@ class GroupInviteMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Group Invite Mail',
+            subject: 'You are invited to join a group',
         );
     }
 
@@ -38,6 +41,10 @@ class GroupInviteMail extends Mailable
     {
         return new Content(
             view: 'mail.group_invite',
+            with: [
+                'group' => $this->group,
+                'url' => $this->url,
+            ]
         );
     }
 
