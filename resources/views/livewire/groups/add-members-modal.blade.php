@@ -2,29 +2,39 @@
 
 use Livewire\Volt\Component;
 use App\Models\User;
+use App\Models\GroupInvitation;
+use App\Models\Group;
+use App\Mail\GroupInvitationMail;
+use Illuminate\Support\Str;
+
 
 new class extends Component {
     public $modalOpen = false;
     public $email;
-    public $group;
-    public function mount($group){
+    public Group $group;
+    public function mount(Group $group){
         $this->group=$group;
     }
     public function addUser(){
         $this->validate([
-            'email' => 'required|exists:users,email',
+            'email' => 'required|email',
         ]);
-        $user=User::where("email",$this->email)->first();
-        if ($this->group->users->contains($user)) {
-            $this->addError('email', 'This user is already a member of the group.');
-            return;
-        }
-        $user->groups()->attach($this->group->id);
+        
+        $token = Str::random(32);
+        $invitation = GroupInvitation::create([
+            'group_id' => $this->group->id,
+            'email' => $this->email,
+            'token' => $token,
+        ]);
+        $url = route('groups.accept-invitation', $token);
+
+        Mail::to($this->email)->queue(new GroupInvitationMail($this->group, $url));
+
         $this->dispatch('membersChanged');
-        $this->reset('email');
-        $this->modalOpen = false;
+        $this->reset('email'); 
+        $this->modalOpen = false; 
         
-        
+
     }
     
     public function openModal(){
@@ -37,10 +47,8 @@ new class extends Component {
         <x-button.circle  emerald icon="user-add"  wire:click="openModal"/>
     </div>
     <x-modal.card title="Add User" blur wire:model="modalOpen">
-        <form action="{{ route('groups.invite', $group) }}" method="POST">
-            @csrf
-            <x-input label="Email" name="email" type="email" placeholder="mail@email.com"  />
-
+        <form wire:submit.prevent="addUser">
+            <x-input label="Email" name="email" wire:model="email" type="email" placeholder="mail@email.com"  />
             <div class="flex justify-end">
                 <div class="flex mt-3">
                     <x-button flat label="Cancel" x-on:click="close" />

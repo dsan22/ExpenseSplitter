@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\GroupInvitationController;
+use App\Http\Controllers\AcceptInvitationController;
 use App\Models\Group;
 use Illuminate\Support\Facades\Route;
 
@@ -46,10 +46,8 @@ Route::view('profile', 'profile')
     });
 
 
-Route::post('groups/{group}/invite', [GroupInvitationController::class, 'sendInvitation'])->middleware(['auth'])
-    ->middleware(['auth'])    
-    ->name('groups.invite');
-Route::get('groups/invitation/{token}', [GroupInvitationController::class, 'acceptInvitation'])
+
+Route::get('groups/invitation/{token}', AcceptInvitationController::class)
     ->middleware(['auth'])
     ->name('groups.accept-invitation');
 
