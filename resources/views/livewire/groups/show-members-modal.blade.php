@@ -50,10 +50,13 @@ new class extends Component {
                 <div>{{auth()->user()->name}}</div>
                 <div>Your payment: {{auth()->user()->calculateUserPaymentForGroup($group)}} $</div>
             </div>
-            <div class="flex justify-between px-3 w-1/4">
-                <x-button negative label="Leave"  wire:click="leave" />
-                <livewire:groups.add-members-modal :group="$group" />
-            </div>
+            @if (!$group->finished)
+                <div class="flex justify-between px-3 w-1/4">
+                    <x-button negative label="Leave"  wire:click="leave" />
+                    <livewire:groups.add-members-modal :group="$group" />
+                </div>
+            @endif
+            
         </div>
 
         <div class="bg-gray-50 mt-5 p-6 space-y-4">
@@ -66,13 +69,17 @@ new class extends Component {
                     <div class="text-gray-700 font-medium w-2/5 ">{{ $user->name }}</div>
                     <div class="text-gray-700 font-medium w-2/5 text-center">{{ $user->calculateUserPaymentForGroup($group) }} $</div>
                     <div class="flex justify-end w-1/5">
-                        <x-button.circle 
-                            sm 
-                            negative 
-                            icon="user-remove" 
-                            wire:click="removeFromGroup({{ $user->id }})" 
-                        />
-                </div>
+                        @if (!$group->finished)
+                            <x-button.circle 
+                                sm 
+                                negative 
+                                icon="user-remove" 
+                                wire:click="removeFromGroup({{ $user->id }})" 
+                            />
+                        @else
+                            <x-badge negative label="Not paid" />
+                        @endif
+                    </div>
                 </div>
             @endforeach
         </div>

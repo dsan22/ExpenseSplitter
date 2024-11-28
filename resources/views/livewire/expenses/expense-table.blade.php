@@ -58,8 +58,10 @@ new class extends Component {
                 <td class="px-3 py-3">{{ $expense->getTotalPrice() }}</td>
                 <td class="px-3 py-3">{{ $expense->added_by->name }}</td>
                 <td class="px-3 py-3">
-                    <x-button.circle  emerald icon="user-add"  wire:click="openAddExpenseModal({{$expense}})"/>
-                    <x-button.circle  negative  icon="trash"  wire:click="deleteExpense({{$expense}})"/>
+                    @if(!$group->finished)
+                        <x-button.circle  emerald icon="user-add"  wire:click="openAddExpenseModal({{$expense}})"/>
+                        <x-button.circle  negative  icon="trash"  wire:click="deleteExpense({{$expense}})"/>
+                    @endif
                 </td>
             </tr>
         

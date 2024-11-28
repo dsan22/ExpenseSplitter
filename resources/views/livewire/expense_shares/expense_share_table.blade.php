@@ -47,7 +47,9 @@ new class extends Component {
             <td class="px-4 py-2">{{$share->calculatePortion()}}</td>
             <td class="px-4 py-2">{{$share->calculateUserPayment()}}</td>
             <td class="px-4 py-2">
-                <x-button.circle  negative  icon="trash"  wire:click="deleteExpenseShare({{$share}})"/>
+                @if(!$expense->group->finished)
+                    <x-button.circle  negative  icon="trash"  wire:click="deleteExpenseShare({{$share}})"/>
+                @endif
             </td>
         </tr>
         @endforeach
