@@ -28,9 +28,12 @@ new class extends Component {
         <livewire:groups.show-members-modal :group="$group"/>
     </div>
     <div class="w-full mt-6">
+        @if (!$group->finished)
         <div class="m-5">
             <livewire:expenses.create-expense-modal :group="$group"/>
         </div>
+        @endif
+      
 
         <div>
             <livewire:expenses.expense-table :group="$group" :key="$tableKey"/>
