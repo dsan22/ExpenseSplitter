@@ -22,4 +22,8 @@ class Group extends Model
 }
 
     protected $guarded=['id'];
+
+    protected $casts = [
+        'finished' => 'boolean',
+    ];
 }
