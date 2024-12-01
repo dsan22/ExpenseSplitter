@@ -13,7 +13,8 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     public function groups(){
-        return $this->belongsToMany(Group::class);
+        return $this->belongsToMany(Group::class)
+        ->withPivot('payment_done');
     }
 
     public function calculateUserPaymentForGroup(Group $group){
