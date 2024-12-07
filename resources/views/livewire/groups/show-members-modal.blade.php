@@ -77,7 +77,11 @@ new class extends Component {
                                 wire:click="removeFromGroup({{ $user->id }})" 
                             />
                         @else
-                            <x-badge negative label="Not paid" />
+                            @if(!$user->getPaymentDone($group))
+                                <x-badge negative label="Not paid" />
+                            @else
+                                <x-badge green label="Paid" />
+                            @endif
                         @endif
                     </div>
                 </div>

@@ -17,6 +17,19 @@ class User extends Authenticatable
         ->withPivot('payment_done');
     }
 
+    /**
+     * function that loads pivot data for payment_done column from group_user table 
+     * used in modals to display payment_done status
+     * /
+     * @param \App\Models\Group $group
+     * @return mixed
+     */
+    public function getPaymentDone(Group $group)
+    {
+        $userInGroup = $group->users()->where('users.id', $this->id)->first();
+        return $userInGroup ? $userInGroup->pivot->payment_done : null;
+    }
+
     public function calculateUserPaymentForGroup(Group $group){
         $membersCount = $group->users()->count();
         $expenses = $group->expenses;
