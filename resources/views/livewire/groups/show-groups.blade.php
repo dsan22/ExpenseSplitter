@@ -3,6 +3,7 @@
 use Livewire\Volt\Component;
 use App\Models\Group;
 use Livewire\Attributes\On;
+use Illuminate\Support\Facades\Auth;
 
 new class extends Component {
     protected $listeners = [
