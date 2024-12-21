@@ -27,9 +27,9 @@ class DatabaseSeeder extends Seeder
             $user->groups()->attach(
                 Group::factory(3)->create()
             );
-        }
+        };
         $groups=Group::all();
-
+        
         foreach ($groups as $group) {
             $randomUsers = User::inRandomOrder()  // Randomly order the users
                                 ->whereNotIn('id', $group->users->pluck('id'))  // Exclude users already in the group
@@ -38,12 +38,13 @@ class DatabaseSeeder extends Seeder
         
             // Attach the selected random users to the group in one call
             $group->users()->attach($randomUsers);
+            $group->update(['admin_id' => $randomUsers->random()]); 
             Expense::factory(10)->create([
                 'group_id' => $group->id,  // Associating each expense with the group
                 'user_id' => function () use ($randomUsers) {
                     return $randomUsers->random();
                 },
             ]);
-        };  
+        };
     }
 }
