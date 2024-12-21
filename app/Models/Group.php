@@ -13,14 +13,17 @@ class Group extends Model
         return $this->belongsToMany(User::class)
         ->withPivot('payment_done');
     }
+    public function admin()  {
+        return $this->belongsTo(User::class, 'admin_id', 'id');
+    }
 
     public function expenses(){
         return $this->hasMany(Expense::class);
     }
     public function invitations()
-{
-    return $this->hasMany(GroupInvitation::class);
-}
+    {
+        return $this->hasMany(GroupInvitation::class);
+    }
 
     protected $guarded=['id'];
 
