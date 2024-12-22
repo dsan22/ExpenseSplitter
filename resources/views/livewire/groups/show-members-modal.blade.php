@@ -23,7 +23,7 @@ new class extends Component {
         $this->loadUsers();
       
     }
-    public function loadUsers(){
+    public function loadUsers() {
         //todo users dose not refresh as intended  
         $this->users= $this->group->users->except(auth()->id());
     }
@@ -52,7 +52,7 @@ new class extends Component {
     <div>
         <x-button.circle lg sky icon="user-group" wire:click="openModal" />
     </div>
-    <x-modal.card title="Members" blur wire:model="modalOpen">
+    <x-modal.card title="Members" blur wire:model="modalOpen" wire:key="modal-group-{{ $group->id }}">
         <div class="flex justify-between px-8 space-x-3">
             <div class="flex justify-between px-8 w-3/4">
                 <div>{{auth()->user()->name}}</div>
@@ -70,9 +70,8 @@ new class extends Component {
         <div class="bg-gray-50 mt-5 p-6 space-y-4">
             @foreach ($users as $user)
                 <div 
-                    wire:key="user-{{ $user->id }}" 
+                    wire:key="{{$user->id}}" 
                     class="flex items-center justify-between py-4 border-b border-gray-200"
-                    wire:transition.fade
                 >
                     <div class="text-gray-700 font-medium w-2/5 ">{{ $user->name }}</div>
                     <div class="text-gray-700 font-medium w-1/5 text-center">{{ $user->calculateUserPaymentForGroup($group) }} $</div>
