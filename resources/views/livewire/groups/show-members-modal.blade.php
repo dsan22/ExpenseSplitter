@@ -67,8 +67,8 @@ new class extends Component {
                     wire:transition.fade
                 >
                     <div class="text-gray-700 font-medium w-2/5 ">{{ $user->name }}</div>
-                    <div class="text-gray-700 font-medium w-2/5 text-center">{{ $user->calculateUserPaymentForGroup($group) }} $</div>
-                    <div class="flex justify-end w-1/5">
+                    <div class="text-gray-700 font-medium w-1/5 text-center">{{ $user->calculateUserPaymentForGroup($group) }} $</div>
+                    <div class="flex justify-center w-1/5">
                         @if (!$group->finished)
                             <x-button.circle 
                                 sm 
@@ -84,6 +84,13 @@ new class extends Component {
                             @endif
                         @endif
                     </div>
+                    @if ($group->finished&&$group->admin_id===auth()->id())
+                    <div class="text-gray-700 font-medium w-1/5 ">
+                        @if (!$user->getPaymentDone($group))
+                            <x-button xs positive label="Confirm Payment"  wire:click="confirmPayment({{ $user->id }})" />
+                        @endif
+                    </div>
+                    @endif
                 </div>
             @endforeach
         </div>
