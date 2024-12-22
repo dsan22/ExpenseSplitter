@@ -24,12 +24,20 @@ new class extends Component {
       
     }
     public function loadUsers(){
+        //todo users dose not refresh as intended  
         $this->users= $this->group->users->except(auth()->id());
     }
 
     public function removeFromGroup($userId)
     {
         $this->group->users()->detach($userId);
+        $this->group->refresh();
+        $this->loadUsers();
+    }
+    public function confirmPayment($userId)
+    {
+        $user=User::find($userId);
+        $user->setPaymentDone($this->group);
         $this->group->refresh();
         $this->loadUsers();
     }

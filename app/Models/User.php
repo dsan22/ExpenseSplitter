@@ -29,6 +29,12 @@ class User extends Authenticatable
         $userInGroup = $group->users()->where('users.id', $this->id)->first();
         return $userInGroup ? $userInGroup->pivot->payment_done : null;
     }
+    public function setPaymentDone(Group $group)
+    {
+        $userInGroup = $group->users()->where('users.id', $this->id)->first();
+        $userInGroup->pivot->payment_done = true;
+        $userInGroup->pivot->save();
+    }
 
     public function calculateUserPaymentForGroup(Group $group){
         $membersCount = $group->users()->count();
