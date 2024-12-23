@@ -6,6 +6,7 @@ use App\Models\GroupInvitation;
 use App\Models\Group;
 use App\Mail\GroupInvitationMail;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 
 
 new class extends Component {
