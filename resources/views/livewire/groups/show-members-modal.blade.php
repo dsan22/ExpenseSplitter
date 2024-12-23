@@ -3,6 +3,7 @@
 use Livewire\Volt\Component;
 use App\Models\Group;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 new class extends Component {
     protected $listeners = [
@@ -23,8 +24,7 @@ new class extends Component {
         $this->loadUsers();
       
     }
-    public function loadUsers() {
-        //todo users dose not refresh as intended  
+    public function loadUsers() { 
         $this->users= $this->group->users->except(auth()->id());
     }
 
@@ -38,6 +38,7 @@ new class extends Component {
     {
         $user=User::find($userId);
         $user->setPaymentDone($this->group);
+        Mail::to($user->email)->queue(new \App\Mail\UsersPaymentConfirmationMail( $this->group,$user));
         $this->group->refresh();
         $this->loadUsers();
     }
