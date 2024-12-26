@@ -16,7 +16,8 @@ new class extends Component {
         $this->expenses = $group->expenses;
     }
 
-    public function toggle($id){
+    public function toggle($id)
+    {
         $this->show = ($this->show === $id) ? null : $id;
     }
     public function openAddExpenseModal(Expense $expense){
@@ -50,7 +51,6 @@ new class extends Component {
             <tr 
                 class="{{ $loop->even ? 'bg-cyan-50 hover:bg-cyan-100' : 'bg-white hover:bg-cyan-100' }}"
                 wire:key="expense-{{ $expense->id }}"
-               
             >
                 <td class="px-3 py-3"  wire:click="toggle({{ $expense->id }})">{{ $expense->name }}</td>
                 <td class="px-3 py-3">{{ $expense->amount }}</td>
@@ -65,16 +65,13 @@ new class extends Component {
                 </td>
             </tr>
         
-            <tr 
-                class="{{ $show === $expense->id ? '' : 'hidden' }}" 
-                wire:key="expense-details-{{ $expense->id }}"
-            >
-                <td class="px-5" colspan="6">
-                    @if ($show===$expense->id)
-                    <livewire:expense_shares.expense_share_table :expense="$expense"  />
-                    @endif
-                </td>
-            </tr>
+            @if ($show === $expense->id)
+                <tr wire:key="expense-details-{{ $expense->id }}">
+                    <td class="px-5" colspan="6">
+                        <livewire:expense_shares.expense_share_table wire:key="expense-shares-table-{{ $expense->id }}" :expense="$expense" />
+                    </td>
+                </tr>
+            @endif
         @endforeach
     </tbody>
 </table>

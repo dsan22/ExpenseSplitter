@@ -41,7 +41,7 @@ new class extends Component {
     <tbody>
         @foreach ($expenseShares as $share)
         <tr class="bg-gray-200"
-            wire:key="expense-{{ $expense->id }}">
+            wire:key="expense-share-{{ $expense->id }}">
             <td class="px-4 py-2">{{$share->user->name}}</td>
             <td class="px-4 py-2">{{$share->weight}}</td>
             <td class="px-4 py-2">{{$share->calculatePortion()}}</td>
