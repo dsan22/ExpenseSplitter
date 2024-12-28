@@ -65,7 +65,7 @@ new class extends Component {
                 </td>
             </tr>
         
-            @if ($show === $expense->id)
+            @if ($expense->expenseShares->isNotEmpty() && $show === $expense->id)
                 <tr wire:key="expense-details-{{ $expense->id }}">
                     <td class="px-5" colspan="6">
                         <livewire:expense_shares.expense_share_table wire:key="expense-shares-table-{{ $expense->id }}" :expense="$expense" />
