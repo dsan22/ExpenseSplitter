@@ -37,13 +37,12 @@ new class extends Component {
     </div>
     <div class="w-full mt-6">
         @if (!$group->finished)
-        <div class="m-5 flex gap-3">
-            <livewire:expenses.create-expense-modal :group="$group"/>
-            <x-button sky icon="check" wire:click="finalizeGroup">Finalize Group</x-button>
-        </div>
+            <div class="m-5 flex gap-3">
+                <livewire:expenses.create-expense-modal :group="$group"/>
+                <x-button sky icon="check" wire:click="finalizeGroup">Finalize Group</x-button>
+            </div>
         @endif
-      
-
+        
         <div>
             <livewire:expenses.expense-table :group="$group" :key="$tableKey"/>
         </div>
