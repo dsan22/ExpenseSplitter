@@ -20,6 +20,11 @@ new class extends Component {
         $this->expenses=$this->group->expenses;
         $this->tableKey = uniqid();
     }
+    public function finilizeGroup(){
+        $this->group->finished=true;
+        $this->group->save();
+        $this->refreshGroup();
+    }
 }; ?>
 
 <div>
@@ -32,8 +37,9 @@ new class extends Component {
     </div>
     <div class="w-full mt-6">
         @if (!$group->finished)
-        <div class="m-5">
+        <div class="m-5 flex gap-3">
             <livewire:expenses.create-expense-modal :group="$group"/>
+            <x-button sky icon="check" wire:click="finilizeGroup">Finilize Group</x-button>
         </div>
         @endif
       
